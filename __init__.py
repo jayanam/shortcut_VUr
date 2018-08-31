@@ -4,8 +4,8 @@ bl_info = {
     "author": "Jayanam",
     "version": (0, 5, 0, 0),
     "blender": (2, 80, 0),
-    "location": "VIEW_3D",
-    "category": "VIEW_3D"}
+    "location": "View3D",
+    "category": "Object"}
 
 # Blender imports
 import bpy

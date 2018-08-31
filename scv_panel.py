@@ -17,7 +17,6 @@ class SCV_Panel(Panel):
         row = layout.row()
         
         if(context.window_manager.SCV_started):
-            row.operator('object.scv_op', text="Stop Shortcut VUr", icon="FACESEL_HLT")
+            row.operator('object.scv_op', text="Stop Shortcut VUr", icon="CANCEL")
         else:
-            row.operator('object.scv_op', text="Start Shortcut VUr", icon="FACESEL_HLT")
- 
+            row.operator('object.scv_op', text="Start Shortcut VUr", icon="PLAY")
