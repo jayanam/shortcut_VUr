@@ -5,7 +5,7 @@ bl_info = {
     "version": (0, 5, 0, 0),
     "blender": (2, 80, 0),
     "location": "VIEW_3D",
-    "category": "VIEW_3D"}
+    "category": "Object"}
 
 # Blender imports
 import bpy
