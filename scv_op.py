@@ -57,20 +57,20 @@ class SCV_Key_Input:
     def __str__(self):
         result = []
         
+        if(self.is_shift):
+            result.append("Shift")
+            
         if(self.is_ctrl):
             result.append("Ctrl")
             
         if(self.is_alt):
             result.append("Alt")
-        
-        if(self.is_shift):
-            result.append("Shift")
-            
+                    
         if(self.key != ''):
             result.append(self.key)
         
         if(len(result) > 0):
-            return ' | '.join(result)                  
+            return ' + '.join(result)                  
         
         return ''
         
@@ -131,7 +131,7 @@ class SCV_Operator(Operator):
     
     def register_handlers(self, args, context):
         self.draw_handle = bpy.types.SpaceView3D.draw_handler_add(self.draw_callback_px, args, "WINDOW", "POST_PIXEL")
-        self.draw_event = context.window_manager.event_timer_add(0.1, context.window)
+        self.draw_event = context.window_manager.event_timer_add(0.1, window=context.window)
         
     def unregister_handlers(self, context):
         
