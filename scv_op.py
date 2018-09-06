@@ -97,12 +97,12 @@ class SCV_Mouse_Input:
         result = result + "right: " + str(self.is_right)
         return result
 	
-class SCV_Operator(Operator):
-    bl_idname = "object.scv_op"
+class SCV_OT_draw_operator(Operator):
+    bl_idname = "object.scv_ot_draw_operator"
     bl_label = "Shortcut VUr"
-    bl_description = "Shortcut display addon" 
-    bl_options = {'REGISTER'} 
-	
+    bl_description = "Shortcut display operator" 
+    bl_options = {'REGISTER'}
+    	
     @classmethod
     def poll(cls, context):
         return True
@@ -131,6 +131,7 @@ class SCV_Operator(Operator):
     
     def register_handlers(self, args, context):
         self.draw_handle = bpy.types.SpaceView3D.draw_handler_add(self.draw_callback_px, args, "WINDOW", "POST_PIXEL")
+        
         self.draw_event = context.window_manager.event_timer_add(0.1, window=context.window)
         
     def unregister_handlers(self, context):

@@ -12,28 +12,17 @@ import bpy
 
 from bpy.props import *
 
-from . scv_op    import SCV_Operator
-from . scv_panel import SCV_Panel
+from . scv_op    import SCV_OT_draw_operator
+from . scv_panel import SCV_PT_panel
 
 addon_keymaps = []
 
 wm = bpy.types.WindowManager
 wm.SCV_started = bpy.props.BoolProperty(default=False)
 
-def register():
-   bpy.utils.register_class(SCV_Operator)
-   bpy.utils.register_class(SCV_Panel)
-     
-def unregister():
-   bpy.utils.unregister_class(SCV_Operator)
-   bpy.utils.unregister_class(SCV_Panel)
-  
-   
-   # remove keymap entry
-   for km, kmi in addon_keymaps:
-       km.keymap_items.remove(kmi)
-   addon_keymaps.clear()
+classes = ( SCV_OT_draw_operator, SCV_PT_panel )
 
+register, unregister = bpy.utils.register_classes_factory(classes)
     
 if __name__ == "__main__":
     register()
