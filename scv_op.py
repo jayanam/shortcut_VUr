@@ -131,7 +131,10 @@ class SCV_OT_draw_operator(Operator):
     
     def register_handlers(self, args, context):
         self.draw_handle = bpy.types.SpaceView3D.draw_handler_add(self.draw_callback_px, args, "WINDOW", "POST_PIXEL")
+<<<<<<< HEAD
         
+=======
+>>>>>>> 14ed27bf125a13487b006fc866a5b6db2a627488
         self.draw_event = context.window_manager.event_timer_add(0.1, window=context.window)
         
     def unregister_handlers(self, context):
