@@ -7,20 +7,7 @@ from bpy.types import Operator
 # Blender utils and fonts module
 import blf 
 
-# Blender wrapper for opengl
-import bgl
-
-def draw_bg(region):
-    
-    # Enable Opengl alpha
-    bgl.glEnable(bgl.GL_BLEND)
-    
-    # set color: red, green, blue, alpha
-    # bgl.glColor4f(1.0, 0.0, 0.0, 0.1)
-    
-    # draw rectangle
-    # x0, y0, x1, y1
-    # bgl.glRecti(1, 100, region.width, 0)
+from . scv_draw_util import *
 
 def create_font(id, size):
     blf.size(id, size, 72)
@@ -77,12 +64,16 @@ class SCV_Key_Input:
 class SCV_Mouse_Input:
 
     def __init__(self):
+        self.init()
+    
+    def init(self):
         self.is_left   = False
         self.is_middle = False
-        self.is_right  = False
+        self.is_right  = False         
         
     def input(self, event):
         
+        self.init()
         if(event.type == 'LEFTMOUSE'):
             self.is_left = event.value == 'PRESS'
         if(event.type == 'MIDDLEMOUSE'):
@@ -102,7 +93,9 @@ class SCV_OT_draw_operator(Operator):
     bl_label = "Shortcut VUr"
     bl_description = "Shortcut display operator" 
     bl_options = {'REGISTER'}
-    	
+    
+    duration = bpy.props.IntProperty()
+	
     @classmethod
     def poll(cls, context):
         return True
@@ -116,6 +109,7 @@ class SCV_OT_draw_operator(Operator):
         
         self.key_input = SCV_Key_Input()
         self.mouse_input = SCV_Mouse_Input()
+
         
         if(context.window_manager.SCV_started is False):
             context.window_manager.SCV_started = True
@@ -130,7 +124,7 @@ class SCV_OT_draw_operator(Operator):
             return {'CANCELLED'}
     
     def register_handlers(self, args, context):
-        self.draw_handle = bpy.types.SpaceView3D.draw_handler_add(self.draw_callback_px, args, "WINDOW", "POST_PIXEL")
+        self.draw_handle = bpy.types.SpaceView3D.draw_handler_add(self.draw_callback_px, (self, context), "WINDOW", "POST_PIXEL")
         self.draw_event = context.window_manager.event_timer_add(0.1, window=context.window)
         
     def unregister_handlers(self, context):
@@ -140,16 +134,16 @@ class SCV_OT_draw_operator(Operator):
         bpy.types.SpaceView3D.draw_handler_remove(self.draw_handle, "WINDOW")
         
         self.draw_handle = None
-        self.draw_event = None
+        self.draw_event  = None
      
            
     def modal(self, context, event):
-        context.area.tag_redraw()
+        if context.area:
+            context.area.tag_redraw()
     
         self.detect_keyboard(event)   
         
-        # TODO: Implement when 2.8 draw API is available
-        # self.detect_mouse(event)  
+        self.detect_mouse(event)  
         
         if not context.window_manager.SCV_started:
 
@@ -178,23 +172,23 @@ class SCV_OT_draw_operator(Operator):
         return {"FINISHED"}
 		
 	    # Draw handler to paint onto the screen
-    def draw_callback_px(tmp, self, context):
-        
-        region = context.region
+    def draw_callback_px(self, context, args):
+            
+        draw_buttons(
+        self.mouse_input.is_left,
+        self.mouse_input.is_middle, 
+        self.mouse_input.is_right)
         
         current_time = time.time()
         
         time_diff_keys = current_time - self.key_input.timestamp
-        
+                            
         if(time_diff_keys < 4.0):
-                        
-            xt = int(region.width / 2.0)
-                             
+                                                 
             # Big font
             font_id = 0
             create_font(font_id, 30)
             
             text = str(self.key_input)
-            
-            #draw_text(text, xt- blf.dimensions(font_id, text)[0] / 2, 30, font_id)
-            draw_text(text, 40, 30, font_id)
+                                    
+            draw_text(text, 110, 25, font_id)

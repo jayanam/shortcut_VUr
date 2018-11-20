@@ -3,7 +3,7 @@ from bpy.types import Panel
 
 class SCV_PT_panel(Panel):
     bl_space_type = "VIEW_3D"
-    bl_region_type = "TOOLS"
+    bl_region_type = "UI"
     bl_label = "Shortcut VUr"
     bl_category = "Shortcut VUr"
     
