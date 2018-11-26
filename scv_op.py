@@ -21,7 +21,9 @@ def draw_text(text, x, y, font_id):
     
     blf.draw(font_id, text)
     
-allowed_key_types = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+ignored_keys = ['LEFT_SHIFT', 'RIGHT_SHIFT', 'LEFT_ALT',
+         'RIGHT_ALT', 'LEFT_CTRL', 'RIGHT_CTRL', 'TIMER',
+         'MOUSEMOVE', 'INBETWEEN_MOUSEMOVE', 'TIMER_REPORT', 'TIMER1']
 
 allowed_mouse_types = ['LEFTMOUSE','MIDDLEMOUSE','RIGHTMOUSE']
     
@@ -154,7 +156,7 @@ class SCV_OT_draw_operator(Operator):
         return {"PASS_THROUGH"}
     
     def detect_keyboard(self, event):
-        if(event.value == 'PRESS' and event.type in allowed_key_types):
+        if event.type not in ignored_keys:
             self.key_input.input(event)
                         
     def detect_mouse(self, event):
