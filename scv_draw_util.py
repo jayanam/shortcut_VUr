@@ -2,10 +2,12 @@ import gpu
 
 from gpu_extras.batch import batch_for_shader
 
+y_off = 20
+
 # bottom left, top left, top right, bottom right
-vertices_left   = ((20, 20), (20, 50), (40, 50), (40, 20))
-vertices_right  = ((70, 20), (70, 50), (90, 50), (90, 20))
-vertices_middle = ((50, 30), (50, 50), (60, 50), (60, 30))
+vertices_left   = ((20, 20 + y_off), (20, 50 + y_off), (40, 50 + y_off), (40, 20 + y_off))
+vertices_right  = ((70, 20 + y_off), (70, 50 + y_off), (90, 50 + y_off), (90, 20 + y_off))
+vertices_middle = ((50, 30 + y_off), (50, 50 + y_off), (60, 50 + y_off), (60, 30 + y_off))
 
 indices = ((0, 1, 2), (0, 2, 3))
 

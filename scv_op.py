@@ -23,7 +23,8 @@ def draw_text(text, x, y, font_id):
     
 ignored_keys = ['LEFT_SHIFT', 'RIGHT_SHIFT', 'LEFT_ALT',
          'RIGHT_ALT', 'LEFT_CTRL', 'RIGHT_CTRL', 'TIMER',
-         'MOUSEMOVE', 'INBETWEEN_MOUSEMOVE', 'TIMER_REPORT', 'TIMER1']
+         'MOUSEMOVE', 'INBETWEEN_MOUSEMOVE', 'TIMER_REPORT', 'TIMER1', 
+         'TIMERREGION']
 
 allowed_mouse_types = ['LEFTMOUSE','MIDDLEMOUSE','RIGHTMOUSE']
     
@@ -193,4 +194,4 @@ class SCV_OT_draw_operator(Operator):
             
             text = str(self.key_input)
                                     
-            draw_text(text, 110, 25, font_id)
+            draw_text(text, 110, 40, font_id)
