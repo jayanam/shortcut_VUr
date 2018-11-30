@@ -2,7 +2,7 @@ import gpu
 
 from gpu_extras.batch import batch_for_shader
 
-y_off = 20
+y_off = 15
 
 # bottom left, top left, top right, bottom right
 vertices_left   = ((20, 20 + y_off), (20, 50 + y_off), (40, 50 + y_off), (40, 20 + y_off))
