@@ -16,15 +16,12 @@ def draw_text(text, x, y, font_id):
 
     blf.position(font_id, x, y , 0)
     
-    # We have to wait for Draw API of Blender 2.8
-    # bgl.glColor4f(1.0, 1.0, 1.0, 1.0)
-    
     blf.draw(font_id, text)
     
 ignored_keys = ['LEFT_SHIFT', 'RIGHT_SHIFT', 'LEFT_ALT',
          'RIGHT_ALT', 'LEFT_CTRL', 'RIGHT_CTRL', 'TIMER',
          'MOUSEMOVE', 'INBETWEEN_MOUSEMOVE', 'TIMER_REPORT', 'TIMER1', 
-         'TIMERREGION']
+         'TIMERREGION', 'WINDOW_DEACTIVATE', 'NONE']
 
 allowed_mouse_types = ['LEFTMOUSE','MIDDLEMOUSE','RIGHTMOUSE']
     
@@ -188,10 +185,9 @@ class SCV_OT_draw_operator(Operator):
                             
         if(time_diff_keys < 4.0):
                                                  
-            # Big font
             font_id = 0
-            create_font(font_id, 30)
+            create_font(font_id, 28)
             
             text = str(self.key_input)
                                     
-            draw_text(text, 110, 40, font_id)
+            draw_text(text, 12, 30, font_id)
