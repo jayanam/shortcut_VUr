@@ -18,3 +18,6 @@ class SCV_PT_panel(Panel):
             row.operator('object.scv_ot_draw_operator', text="Stop Shortcut VUr", icon="CANCEL")
         else:
             row.operator('object.scv_ot_draw_operator', text="Start Shortcut VUr", icon="PLAY")
+
+        row = layout.row()
+        layout.prop(context.scene, "h_dock")

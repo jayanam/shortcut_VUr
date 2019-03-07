@@ -2,48 +2,54 @@ import gpu
 
 from gpu_extras.batch import batch_for_shader
 
-x_off = 14
-y_off = 50
+class SCV_Draw_Util:
 
+    def __init__(self, context):
+        self.x_off = 14
+        self.y_off = 50
 
-# bottom left, top left, top right, bottom right
-vertices_left   = ((x_off, 20 + y_off), (x_off, 50 + y_off), (x_off + 20, 50 + y_off), (x_off + 20, 20 + y_off))
-vertices_right  = ((x_off + 50, 20 + y_off), (x_off + 50, 50 + y_off), (x_off + 70, 50 + y_off), (x_off + 70, 20 + y_off))
-vertices_middle = ((x_off + 30, 30 + y_off), (x_off + 30, 50 + y_off), (x_off + 40, 50 + y_off), (x_off + 40, 30 + y_off))
+        self.indices     = ((0, 1, 2), (0, 2, 3))
 
-indices = ((0, 1, 2), (0, 2, 3))
+        # color tuples
+        self.color       = (0.6, 0.6, 0.6, 0.1)
+        self.color_hover = (1, 1, 1, 1)
 
-# color tuples
-grey  = (0.6, 0.6, 0.6, 0.1)
-white = (1, 1, 1, 1)
+    def create_batches(self, context):
 
-shader = gpu.shader.from_builtin('2D_UNIFORM_COLOR')
+        if context.scene.h_dock == "0":
+            self.x_off = 14
+        else:
+            self.x_off = context.region.width - 100
 
-batch_left_button = batch_for_shader(shader, 'TRIS', {"pos" : vertices_left}, indices=indices)
+        # bottom left, top left, top right, bottom right
+        self.vertices_left   = ((self.x_off,      20 + self.y_off), (self.x_off,      50 + self.y_off), (self.x_off + 20, 50 + self.y_off), (self.x_off + 20, 20 + self.y_off))
+        self.vertices_right  = ((self.x_off + 50, 20 + self.y_off), (self.x_off + 50, 50 + self.y_off), (self.x_off + 70, 50 + self.y_off), (self.x_off + 70, 20 + self.y_off))
+        self.vertices_middle = ((self.x_off + 30, 30 + self.y_off), (self.x_off + 30, 50 + self.y_off), (self.x_off + 40, 50 + self.y_off), (self.x_off + 40, 30 + self.y_off))
+        self.shader = gpu.shader.from_builtin('2D_UNIFORM_COLOR')
 
-batch_right_button = batch_for_shader(shader, 'TRIS', {"pos" : vertices_right}, indices=indices)
+        self.batch_left_button   = batch_for_shader(self.shader, 'TRIS', {"pos" : self.vertices_left},   indices = self.indices)
+        self.batch_right_button  = batch_for_shader(self.shader, 'TRIS', {"pos" : self.vertices_right},  indices = self.indices)
+        self.batch_middle_button = batch_for_shader(self.shader, 'TRIS', {"pos" : self.vertices_middle}, indices = self.indices)
 
-batch_middle_button = batch_for_shader(shader, 'TRIS', {"pos" : vertices_middle}, indices=indices)
-
-def __get_color(key_state):
-    if key_state is True:
-        return white
-    else:
-        return grey
+    def __get_color(self, key_state):
+        if key_state is True:
+            return self.color_hover
+        else:
+            return self.color
     
-def __set_color(key_state):
-    shader.uniform_float("color", __get_color(key_state))
+    def __set_color(self, key_state):
+        self.shader.uniform_float("color", self.__get_color(key_state))
     
-def draw_buttons(left, middle, right):
-    
-    shader.bind()
-    
-    __set_color(left)
-    
-    batch_left_button.draw(shader)
-    
-    __set_color(middle)
-    batch_middle_button.draw(shader)
-    
-    __set_color(right)
-    batch_right_button.draw(shader)
+    def draw_buttons(self, left, middle, right):
+        
+        self.shader.bind()
+        
+        self.__set_color(left)
+        
+        self.batch_left_button.draw(self.shader)
+        
+        self.__set_color(middle)
+        self.batch_middle_button.draw(self.shader)
+        
+        self.__set_color(right)
+        self.batch_right_button.draw(self.shader)

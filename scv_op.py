@@ -96,21 +96,21 @@ class SCV_OT_draw_operator(Operator):
     
     duration = bpy.props.IntProperty()
 	
-    @classmethod
-    def poll(cls, context):
-        return True
-    
     def __init(self):
         self.draw_handle = None
         self.draw_event  = None
 
     def invoke(self, context, event):
         args = (self, context)
-        
+
+        self.draw_util = SCV_Draw_Util(context)        
         self.key_input = SCV_Key_Input()
         self.mouse_input = SCV_Mouse_Input()
 
-        
+        self.h_dock = context.scene.h_dock
+
+        self.draw_util.create_batches(context)
+                
         if(context.window_manager.SCV_started is False):
             context.window_manager.SCV_started = True
                 
@@ -123,8 +123,14 @@ class SCV_OT_draw_operator(Operator):
             context.window_manager.SCV_started = False
             return {'CANCELLED'}
     
+    def has_dock_changed(self, context):
+        if self.h_dock != context.scene.h_dock:
+            self.h_dock = context.scene.h_dock
+            return True
+        return False
+
     def register_handlers(self, args, context):
-        self.draw_handle = bpy.types.SpaceView3D.draw_handler_add(self.draw_callback_px, (self, context), "WINDOW", "POST_PIXEL")
+        self.draw_handle = bpy.types.SpaceView3D.draw_handler_add(self.draw_callback_px, args, "WINDOW", "POST_PIXEL")
         self.draw_event = context.window_manager.event_timer_add(0.1, window=context.window)
         
     def unregister_handlers(self, context):
@@ -143,7 +149,10 @@ class SCV_OT_draw_operator(Operator):
     
         self.detect_keyboard(event)   
         
-        self.detect_mouse(event)  
+        self.detect_mouse(event)
+
+        if self.has_dock_changed(context):
+            self.draw_util.create_batches(context)
         
         if not context.window_manager.SCV_started:
 
@@ -170,15 +179,16 @@ class SCV_OT_draw_operator(Operator):
     def finish(self):
         self.unregister_handlers(context)
         return {"FINISHED"}
+
 		
-	    # Draw handler to paint onto the screen
-    def draw_callback_px(self, context, args):
-            
-        draw_buttons(
+	# Draw handler to paint onto the screen
+    def draw_callback_px(self, op, context):
+
+        self.draw_util.draw_buttons(
         self.mouse_input.is_left,
         self.mouse_input.is_middle, 
         self.mouse_input.is_right)
-        
+                
         current_time = time.time()
         
         time_diff_keys = current_time - self.key_input.timestamp
@@ -189,5 +199,14 @@ class SCV_OT_draw_operator(Operator):
             create_font(font_id, 28)
             
             text = str(self.key_input)
-                                    
-            draw_text(text, 12, 30, font_id)
+
+            xpos_text = 12
+
+            if context.scene.h_dock == "1":
+
+                # right dock
+                text_extent = blf.dimensions(font_id, text)
+
+                xpos_text = context.region.width - text_extent[0] - 28 
+                                                
+            draw_text(text, xpos_text, 30, font_id)

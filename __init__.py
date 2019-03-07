@@ -2,7 +2,7 @@ bl_info = {
     "name": "Shortcut VUr",
     "description": "Shortcut display addon",
     "author": "Jayanam",
-    "version": (0, 6, 0, 3),
+    "version": (0, 6, 0, 4),
     "blender": (2, 80, 0),
     "location": "View3D",
     "category": "Object"}
@@ -19,6 +19,15 @@ addon_keymaps = []
 
 wm = bpy.types.WindowManager
 wm.SCV_started = bpy.props.BoolProperty(default=False)
+
+h_dock = [ ("0",  "Left",  "Dock to the left side"),
+           ("1",  "Right", "Dock to the right side")
+         ]
+
+bpy.types.Scene.h_dock = bpy.props.EnumProperty(
+    items = h_dock, name="Dock", 
+    description="Dock to left or right side", 
+    default="0")
 
 classes = ( SCV_OT_draw_operator, SCV_PT_panel )
 
