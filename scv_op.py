@@ -94,7 +94,7 @@ class SCV_OT_draw_operator(Operator):
     bl_description = "Shortcut display operator" 
     bl_options = {'REGISTER'}
     
-    duration = bpy.props.IntProperty()
+    duration : bpy.props.IntProperty()
 	
     def __init(self):
         self.draw_handle = None
