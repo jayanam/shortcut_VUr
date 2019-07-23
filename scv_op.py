@@ -23,6 +23,8 @@ ignored_keys = ['LEFT_SHIFT', 'RIGHT_SHIFT', 'LEFT_ALT',
          'MOUSEMOVE', 'INBETWEEN_MOUSEMOVE', 'TIMER_REPORT', 'TIMER1', 
          'TIMERREGION', 'WINDOW_DEACTIVATE', 'NONE']
 
+clear_events = ['WINDOW_DEACTIVATE', 'TIMER1', 'TIMER_REPORT']
+
 allowed_mouse_types = ['LEFTMOUSE','MIDDLEMOUSE','RIGHTMOUSE']
     
 class SCV_Key_Input:
@@ -64,16 +66,16 @@ class SCV_Key_Input:
 class SCV_Mouse_Input:
 
     def __init__(self):
-        self.init()
+        self.clear()
     
-    def init(self):
+    def clear(self):
         self.is_left   = False
         self.is_middle = False
-        self.is_right  = False         
+        self.is_right  = False
         
     def input(self, event):
         
-        self.init()
+        self.clear()
         if(event.type == 'LEFTMOUSE'):
             self.is_left = event.value == 'PRESS'
         if(event.type == 'MIDDLEMOUSE'):
@@ -165,6 +167,7 @@ class SCV_OT_draw_operator(Operator):
     def detect_keyboard(self, event):
         if event.type not in ignored_keys:
             self.key_input.input(event)
+            self.mouse_input.clear()
                         
     def detect_mouse(self, event):
 
@@ -193,20 +196,29 @@ class SCV_OT_draw_operator(Operator):
         
         time_diff_keys = current_time - self.key_input.timestamp
                             
-        if(time_diff_keys < 4.0):
+        if(time_diff_keys < 3.0):
                                                  
             font_id = 0
             create_font(font_id, 28)
             
             text = str(self.key_input)
 
+            # default left dock
             xpos_text = 12
 
             if context.scene.h_dock == "1":
 
                 # right dock
                 text_extent = blf.dimensions(font_id, text)
-
                 xpos_text = context.region.width - text_extent[0] - 28 
+
+            elif context.scene.h_dock == "2":
+
+                # center dock
+                text_extent = blf.dimensions(font_id, text)
+                xpos_text = (context.region.width - text_extent[0]) / 2.0
                                                 
             draw_text(text, xpos_text, 30, font_id)
+
+        else:
+            self.mouse_input.clear()

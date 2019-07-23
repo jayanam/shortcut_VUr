@@ -7,6 +7,7 @@ class SCV_Draw_Util:
     def __init__(self, context):
         self.x_off = 14
         self.y_off = 50
+        self.width_all = 70
 
         self.indices     = ((0, 1, 2), (0, 2, 3))
 
@@ -18,8 +19,10 @@ class SCV_Draw_Util:
 
         if context.scene.h_dock == "0":
             self.x_off = 14
-        else:
+        elif context.scene.h_dock == "1":
             self.x_off = context.region.width - 100
+        else:
+            self.x_off = ((context.region.width - self.width_all) / 2.0) - 1
 
         # bottom left, top left, top right, bottom right
         self.vertices_left   = ((self.x_off,      20 + self.y_off), (self.x_off,      50 + self.y_off), (self.x_off + 20, 50 + self.y_off), (self.x_off + 20, 20 + self.y_off))

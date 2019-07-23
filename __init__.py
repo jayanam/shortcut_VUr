@@ -2,7 +2,7 @@ bl_info = {
     "name": "Shortcut VUr",
     "description": "Shortcut display addon",
     "author": "Jayanam",
-    "version": (0, 6, 0, 5),
+    "version": (0, 6, 1, 0),
     "blender": (2, 80, 0),
     "location": "View3D",
     "category": "Object"}
@@ -21,7 +21,8 @@ wm = bpy.types.WindowManager
 wm.SCV_started = bpy.props.BoolProperty(default=False)
 
 h_dock = [ ("0",  "Left",  "Dock to the left side"),
-           ("1",  "Right", "Dock to the right side")
+           ("1",  "Right", "Dock to the right side"),
+           ("2",  "Center", "Dock to the center")
          ]
 
 bpy.types.Scene.h_dock = bpy.props.EnumProperty(
