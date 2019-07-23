@@ -20,7 +20,7 @@ def draw_text(text, x, y, font_id):
     
 ignored_keys = ['LEFT_SHIFT', 'RIGHT_SHIFT', 'LEFT_ALT',
          'RIGHT_ALT', 'LEFT_CTRL', 'RIGHT_CTRL', 'TIMER',
-         'MOUSEMOVE', 'INBETWEEN_MOUSEMOVE', 'TIMER_REPORT', 'TIMER1', 
+         'MOUSEMOVE', 'EVT_TWEAK_L', 'INBETWEEN_MOUSEMOVE', 'TIMER_REPORT', 'TIMER1', 
          'TIMERREGION', 'WINDOW_DEACTIVATE', 'NONE']
 
 clear_events = ['WINDOW_DEACTIVATE', 'TIMER1', 'TIMER_REPORT']
