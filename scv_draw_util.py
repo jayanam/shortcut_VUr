@@ -13,10 +13,10 @@ class SCV_Draw_Util:
 
     def set_color_buttons(self, context):
         cb  = context.scene.color_buttons
-        cbh = context.scene.color_buttons_active
+        cba = context.scene.color_buttons_active
 
         self.color        = (cb.r, cb.g, cb.b, 1.0)
-        self.color_active = (cbh.r, cbh.g, cbh.b, 1.0)
+        self.color_active = (cba.r, cba.g, cba.b, 1.0)
 
     def create_batches(self, context):
 
