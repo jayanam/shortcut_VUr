@@ -11,9 +11,12 @@ class SCV_Draw_Util:
 
         self.indices     = ((0, 1, 2), (0, 2, 3))
 
-        # color tuples
-        self.color       = (0.6, 0.6, 0.6, 0.1)
-        self.color_hover = (1, 1, 1, 1)
+    def set_color_buttons(self, context):
+        cb  = context.scene.color_buttons
+        cbh = context.scene.color_buttons_active
+
+        self.color        = (cb.r, cb.g, cb.b, 1.0)
+        self.color_active = (cbh.r, cbh.g, cbh.b, 1.0)
 
     def create_batches(self, context):
 
@@ -36,7 +39,7 @@ class SCV_Draw_Util:
 
     def __get_color(self, key_state):
         if key_state is True:
-            return self.color_hover
+            return self.color_active
         else:
             return self.color
     

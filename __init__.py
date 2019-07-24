@@ -2,7 +2,7 @@ bl_info = {
     "name": "Shortcut VUr",
     "description": "Shortcut display addon",
     "author": "Jayanam",
-    "version": (0, 6, 1, 1),
+    "version": (0, 7, 0, 0),
     "blender": (2, 80, 0),
     "location": "View3D",
     "category": "Object"}
@@ -29,6 +29,30 @@ bpy.types.Scene.h_dock = bpy.props.EnumProperty(
     items = h_dock, name="Dock", 
     description="Dock to left or right side", 
     default="0")
+
+bpy.types.Scene.font_color = bpy.props.FloatVectorProperty(  
+   name="Font Color",
+   subtype='COLOR',
+   default=(1.0, 1.0, 1.0),
+   min=0.0, max=1.0,
+   description="color picker"
+   )
+
+bpy.types.Scene.color_buttons = bpy.props.FloatVectorProperty(  
+   name="Color Buttons",
+   subtype='COLOR',
+   default=(0.1, 0.1, 0.1),
+   min=0.0, max=1.0,
+   description="Color for mouse buttons"
+   )
+
+bpy.types.Scene.color_buttons_active = bpy.props.FloatVectorProperty(  
+   name="Color Buttons active",
+   subtype='COLOR',
+   default=(1.0, 1.0, 1.0),
+   min=0.0, max=1.0,
+   description="Color for mouse active buttons"
+   )
 
 classes = ( SCV_OT_draw_operator, SCV_PT_panel )
 

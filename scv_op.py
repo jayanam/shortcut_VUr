@@ -9,7 +9,8 @@ import blf
 
 from . scv_draw_util import *
 
-def create_font(id, size):
+def create_font(id, size, color):
+    blf.color(id, color.r, color.g, color.b, 1.0 )
     blf.size(id, size, 72)
       
 def draw_text(text, x, y, font_id):
@@ -187,19 +188,28 @@ class SCV_OT_draw_operator(Operator):
 	# Draw handler to paint onto the screen
     def draw_callback_px(self, op, context):
 
+        refresh_after_sec = 3.0
+        font_color = context.scene.font_color
+        font_size = 28
+
+        # set color for buttons
+        self.draw_util.set_color_buttons(context)
+
+        # Draw the mouse buttons
         self.draw_util.draw_buttons(
         self.mouse_input.is_left,
         self.mouse_input.is_middle, 
         self.mouse_input.is_right)
-                
+        
+        # draw the text for events
         current_time = time.time()
         
         time_diff_keys = current_time - self.key_input.timestamp
                             
-        if(time_diff_keys < 3.0):
+        if(time_diff_keys < refresh_after_sec):
                                                  
             font_id = 0
-            create_font(font_id, 28)
+            create_font(font_id, font_size, font_color)
             
             text = str(self.key_input)
 

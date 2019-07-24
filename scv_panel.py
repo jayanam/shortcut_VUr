@@ -21,3 +21,12 @@ class SCV_PT_panel(Panel):
 
         row = layout.row()
         layout.prop(context.scene, "h_dock")
+
+        row = layout.row()
+        layout.prop(context.scene, "font_color")
+
+        row = layout.row()
+        layout.prop(context.scene, "color_buttons")
+
+        row = layout.row()
+        layout.prop(context.scene, "color_buttons_active")
