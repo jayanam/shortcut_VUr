@@ -2,7 +2,7 @@ bl_info = {
     "name": "Shortcut VUr",
     "description": "Shortcut display addon",
     "author": "Jayanam",
-    "version": (0, 7, 0, 1),
+    "version": (0, 7, 0, 2),
     "blender": (2, 80, 0),
     "location": "View3D",
     "category": "Object"}
@@ -28,14 +28,14 @@ h_dock = [ ("0",  "Left",  "Dock to the left side"),
 bpy.types.Scene.h_dock = bpy.props.EnumProperty(
     items = h_dock, name="Dock", 
     description="Dock to left or right side", 
-    default="0")
+    default="1")
 
 bpy.types.Scene.font_color = bpy.props.FloatVectorProperty(  
-   name="Font Color",
+   name="Text Color",
    subtype='COLOR',
    default=(1.0, 1.0, 1.0),
    min=0.0, max=1.0,
-   description="color picker"
+   description="Color for the text"
    )
 
 bpy.types.Scene.color_buttons = bpy.props.FloatVectorProperty(  
