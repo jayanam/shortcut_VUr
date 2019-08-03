@@ -31,19 +31,35 @@ allowed_mouse_types = ['LEFTMOUSE','MIDDLEMOUSE','RIGHTMOUSE']
 class SCV_Key_Input:
 
     def __init__(self):
+        self.clear()
+
+    def clear(self):
         self.is_ctrl  = False
         self.is_alt   = False
         self.is_shift = False
         self.key = ''
+        self.detect_times = 0
         self.timestamp = time.time()
         
     def input(self, event):    
+
+        if self.is_same(event):
+            self.detect_times += 1
+        else:
+            self.detect_times = 1
+
         self.is_ctrl = event.ctrl
         self.is_alt = event.alt
         self.is_shift = event.shift
         self.key = event.type
         self.timestamp = time.time()
-                
+
+    def is_same(self, event):
+        return (self.is_ctrl  == event.ctrl  and
+                self.is_alt   == event.alt   and
+                self.is_shift == event.shift and
+                self.key == event.type)
+          
     def __str__(self):
         result = []
         
@@ -58,9 +74,12 @@ class SCV_Key_Input:
                     
         if(self.key != ''):
             result.append(self.key)
-        
+
         if(len(result) > 0):
-            return ' + '.join(result)                  
+            if self.detect_times > 1:
+                result.append("x " + str(self.detect_times))
+
+            return " ".join(result)                  
         
         return ''
         
@@ -166,7 +185,7 @@ class SCV_OT_draw_operator(Operator):
         return {"PASS_THROUGH"}
     
     def detect_keyboard(self, event):
-        if event.type not in ignored_keys:
+        if event.value == "PRESS" and event.type not in ignored_keys:
             self.key_input.input(event)
             self.mouse_input.clear()
                         
@@ -231,4 +250,5 @@ class SCV_OT_draw_operator(Operator):
             draw_text(text, xpos_text, 30, font_id)
 
         else:
+            self.key_input.clear()
             self.mouse_input.clear()
