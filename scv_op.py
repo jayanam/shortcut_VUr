@@ -1,12 +1,11 @@
 import bpy
 
-import time
-
 from bpy.types import Operator
  
 # Blender utils and fonts module
 import blf 
 
+from . scv_types import *
 from . scv_draw_util import *
 
 def create_font(id, size, color):
@@ -14,101 +13,18 @@ def create_font(id, size, color):
     blf.size(id, size, 72)
       
 def draw_text(text, x, y, font_id):
-
-    blf.position(font_id, x, y , 0)
-    
+    blf.position(font_id, x, y , 0) 
     blf.draw(font_id, text)
     
-ignored_keys = ['LEFT_SHIFT', 'RIGHT_SHIFT', 'LEFT_ALT',
+ignored_keys = {'LEFT_SHIFT', 'RIGHT_SHIFT', 'LEFT_ALT',
          'RIGHT_ALT', 'LEFT_CTRL', 'RIGHT_CTRL', 'TIMER',
          'MOUSEMOVE', 'EVT_TWEAK_L', 'INBETWEEN_MOUSEMOVE', 'TIMER_REPORT', 'TIMER1', 
-         'TIMERREGION', 'WINDOW_DEACTIVATE', 'NONE']
+         'TIMERREGION', 'WINDOW_DEACTIVATE', 'NONE'}
 
-clear_events = ['WINDOW_DEACTIVATE', 'TIMER1', 'TIMER_REPORT']
+clear_events = {'WINDOW_DEACTIVATE', 'TIMER1', 'TIMER_REPORT'}
 
-allowed_mouse_types = ['LEFTMOUSE','MIDDLEMOUSE','RIGHTMOUSE']
+allowed_mouse_types = {'LEFTMOUSE','MIDDLEMOUSE','RIGHTMOUSE'}
     
-class SCV_Key_Input:
-
-    def __init__(self):
-        self.clear()
-
-    def clear(self):
-        self.is_ctrl  = False
-        self.is_alt   = False
-        self.is_shift = False
-        self.key = ''
-        self.detect_times = 0
-        self.timestamp = time.time()
-        
-    def input(self, event):    
-
-        if self.is_same(event):
-            self.detect_times += 1
-        else:
-            self.detect_times = 1
-
-        self.is_ctrl = event.ctrl
-        self.is_alt = event.alt
-        self.is_shift = event.shift
-        self.key = event.type
-        self.timestamp = time.time()
-
-    def is_same(self, event):
-        return (self.is_ctrl  == event.ctrl  and
-                self.is_alt   == event.alt   and
-                self.is_shift == event.shift and
-                self.key == event.type)
-          
-    def __str__(self):
-        result = []
-        
-        if(self.is_shift):
-            result.append("Shift")
-            
-        if(self.is_ctrl):
-            result.append("Ctrl")
-            
-        if(self.is_alt):
-            result.append("Alt")
-                    
-        if(self.key != ''):
-            result.append(self.key)
-
-        if(len(result) > 0):
-            if self.detect_times > 1:
-                result.append("x " + str(self.detect_times))
-
-            return " ".join(result)                  
-        
-        return ''
-        
-class SCV_Mouse_Input:
-
-    def __init__(self):
-        self.clear()
-    
-    def clear(self):
-        self.is_left   = False
-        self.is_middle = False
-        self.is_right  = False
-        
-    def input(self, event):
-        
-        self.clear()
-        if(event.type == 'LEFTMOUSE'):
-            self.is_left = event.value == 'PRESS'
-        if(event.type == 'MIDDLEMOUSE'):
-            self.is_middle = event.value == 'PRESS'  
-        if(event.type == 'RIGHTMOUSE'):
-            self.is_right = event.value == 'PRESS'            
-        
-    def __str__(self):
-        result = ""
-        result = result + "left: "  + str(self.is_left) + ", "
-        result = result + "middle: "   + str(self.is_middle) + ", "
-        result = result + "right: " + str(self.is_right)
-        return result
 	
 class SCV_OT_draw_operator(Operator):
     bl_idname = "object.scv_ot_draw_operator"
