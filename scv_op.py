@@ -46,6 +46,7 @@ class SCV_OT_draw_operator(Operator):
         self.mouse_input = SCV_Mouse_Input()
 
         self.h_dock = context.scene.h_dock
+        self.width_region = context.region.width
 
         self.draw_util.create_batches(context)
                 
@@ -123,6 +124,10 @@ class SCV_OT_draw_operator(Operator):
 	# Draw handler to paint onto the screen
     def draw_callback_px(self, op, context):
 
+        if context.region.width != self.width_region:
+            self.width_region = context.region.width
+            self.draw_util.create_batches(context)
+            
         refresh_after_sec = 3.0
         font_color = context.scene.font_color
         font_size = 28
