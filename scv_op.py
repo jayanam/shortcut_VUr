@@ -15,7 +15,7 @@ def create_font(id, size, color):
 def draw_text(text, x, y, font_id):
     blf.position(font_id, x, y , 0) 
     blf.draw(font_id, text)
-    
+   
 ignored_keys = {'LEFT_SHIFT', 'RIGHT_SHIFT', 'LEFT_ALT',
          'RIGHT_ALT', 'LEFT_CTRL', 'RIGHT_CTRL', 'TIMER',
          'MOUSEMOVE', 'EVT_TWEAK_L', 'INBETWEEN_MOUSEMOVE', 'TIMER_REPORT', 'TIMER1', 

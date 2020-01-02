@@ -1,8 +1,16 @@
 import time
 
+
+
 class SCV_Key_Input:
 
+
+
     def __init__(self):
+        self._friendly_names = { 'LEFTMOUSE': 'Left', 'RIGHTMOUSE': 'Right', 'MIDDLEMOUSE': 'Middle',
+                                 'ESC': 'Escape', 'RET': 'Enter', 'ONE' : '1', 'TWO': '2', 'THREE' : '3', 'FOUR': '4',
+                                 'FIVE': '5', 'SIX':'6', 'SEVEN':'7', 'EIGHT' : '8', 'NINE': '9', 'ZERO' : '0',
+                                 'COMMA' : 'Comma', 'PERIOD' : 'Period'}
         self.clear()
 
     def clear(self):
@@ -12,7 +20,12 @@ class SCV_Key_Input:
         self.key = ''
         self.detect_times = 0
         self.timestamp = time.time()
-        
+
+    def get_event_type(self, event):
+        if event.type in self._friendly_names:
+            return self._friendly_names[event.type]
+        return event.type
+      
     def input(self, event):    
 
         if self.is_same(event):
@@ -23,14 +36,14 @@ class SCV_Key_Input:
         self.is_ctrl = event.ctrl
         self.is_alt = event.alt
         self.is_shift = event.shift
-        self.key = event.type
+        self.key = self.get_event_type(event)
         self.timestamp = time.time()
 
     def is_same(self, event):
         return (self.is_ctrl  == event.ctrl  and
                 self.is_alt   == event.alt   and
                 self.is_shift == event.shift and
-                self.key == event.type)
+                self.key == self.get_event_type(event))
           
     def __str__(self):
         result = []
