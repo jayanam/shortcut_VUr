@@ -72,11 +72,16 @@ class SCV_Mouse_Input:
 
     def __init__(self):
         self.clear()
+        self.set_mouse_pos(0,0)
     
     def clear(self):
         self.is_left   = False
         self.is_middle = False
         self.is_right  = False
+
+    def set_mouse_pos(self, x, y):
+        self.mouse_x = x
+        self.mouse_y = y
         
     def input(self, event):
         

@@ -48,7 +48,7 @@ class SCV_OT_draw_operator(Operator):
         self.h_dock = context.scene.h_dock
         self.width_region = context.region.width
 
-        self.draw_util.create_batches(context)
+        self.draw_util.create_batches(context, self.mouse_input)
                 
         if(context.window_manager.SCV_started is False):
             context.window_manager.SCV_started = True
@@ -85,13 +85,15 @@ class SCV_OT_draw_operator(Operator):
     def modal(self, context, event):
         if context.area:
             context.area.tag_redraw()
+
+        self.handle_mouse_move(context, event)
     
         self.detect_keyboard(event)   
         
         self.detect_mouse(event)
 
         if self.has_dock_changed(context):
-            self.draw_util.create_batches(context)
+            self.draw_util.create_batches(context, self.mouse_input)
         
         if not context.window_manager.SCV_started:
 
@@ -100,6 +102,11 @@ class SCV_OT_draw_operator(Operator):
             return {'CANCELLED'}
                
         return {"PASS_THROUGH"}
+
+    def handle_mouse_move(self, context, event):
+        if event.type == "MOUSEMOVE":
+            self.mouse_input.set_mouse_pos(event.mouse_region_x, event.mouse_region_y)
+            self.draw_util.create_batches(context, self.mouse_input)
     
     def detect_keyboard(self, event):
         if event.value == "PRESS" and event.type not in ignored_keys:
@@ -126,7 +133,7 @@ class SCV_OT_draw_operator(Operator):
 
         if context.region.width != self.width_region:
             self.width_region = context.region.width
-            self.draw_util.create_batches(context)
+            self.draw_util.create_batches(context, self.mouse_input)
             
         refresh_after_sec = 3.0
         font_color = context.scene.font_color
@@ -155,6 +162,7 @@ class SCV_OT_draw_operator(Operator):
 
             # default left dock
             xpos_text = 12
+            ypos_text = 30
 
             if context.scene.h_dock == "1":
 
@@ -167,8 +175,16 @@ class SCV_OT_draw_operator(Operator):
                 # center dock
                 text_extent = blf.dimensions(font_id, text)
                 xpos_text = (context.region.width - text_extent[0]) / 2.0
+
+            elif context.scene.h_dock == "3":
+
+                ox = context.scene.cursor_offset_x
+                oy = context.scene.cursor_offset_y  
+                text_extent = blf.dimensions(font_id, text)
+                xpos_text = self.mouse_input.mouse_x - (text_extent[0] / 2.0) + ox
+                ypos_text = self.mouse_input.mouse_y - 120 - oy
                                                 
-            draw_text(text, xpos_text, 30, font_id)
+            draw_text(text, xpos_text, ypos_text, font_id)
 
         else:
             self.key_input.clear()

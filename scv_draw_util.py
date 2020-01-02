@@ -18,12 +18,22 @@ class SCV_Draw_Util:
         self.color        = (cb.r, cb.g, cb.b, 1.0)
         self.color_active = (cba.r, cba.g, cba.b, 1.0)
 
-    def create_batches(self, context):
+    def create_batches(self, context, mouse_input):
+
+        self.y_off = 50
+
+        ox = context.scene.cursor_offset_x
+        oy = context.scene.cursor_offset_y
 
         if context.scene.h_dock == "0":
             self.x_off = 14
         elif context.scene.h_dock == "1":
             self.x_off = context.region.width - 100
+
+        # Follow cursor
+        elif context.scene.h_dock == "3":
+            self.x_off = mouse_input.mouse_x - 35 + ox
+            self.y_off = mouse_input.mouse_y - 100 - oy
         else:
             self.x_off = ((context.region.width - self.width_all) / 2.0) - 1
 

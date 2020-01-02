@@ -2,7 +2,7 @@ bl_info = {
     "name": "Shortcut VUr",
     "description": "Shortcut display addon",
     "author": "Jayanam",
-    "version": (0, 8, 0, 0),
+    "version": (0, 9, 0, 0),
     "blender": (2, 80, 0),
     "location": "View3D",
     "category": "Object"}
@@ -22,13 +22,24 @@ wm.SCV_started = bpy.props.BoolProperty(default=False)
 
 h_dock = [ ("0",  "Left",  "Dock to the left side"),
            ("1",  "Right", "Dock to the right side"),
-           ("2",  "Center", "Dock to the center")
+           ("2",  "Center", "Dock to the center"),
+           ("3",  "Cursor", "Attach to mouse cursor")
          ]
 
 bpy.types.Scene.h_dock = bpy.props.EnumProperty(
     items = h_dock, name="Dock", 
-    description="Dock to left or right side", 
+    description="Dock to left, center, right or to the cursor", 
     default="1")
+
+bpy.types.Scene.cursor_offset_x = IntProperty(
+                                      name="Offset X", 
+                                      description="Offset X to cursor",
+                                      default = 0)
+
+bpy.types.Scene.cursor_offset_y = IntProperty(
+                                      name="Offset Y", 
+                                      description="Offset Y to cursor",
+                                      default = 0)
 
 bpy.types.Scene.font_color = bpy.props.FloatVectorProperty(  
    name="Text Color",

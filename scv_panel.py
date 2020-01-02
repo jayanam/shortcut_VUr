@@ -21,6 +21,13 @@ class SCV_PT_panel(Panel):
 
         row = layout.row()
         layout.prop(context.scene, "h_dock")
+        
+        if (scene.h_dock == "3"):
+            row = layout.row()
+            layout.prop(context.scene, "cursor_offset_x")
+
+            row = layout.row()
+            layout.prop(context.scene, "cursor_offset_y")
 
         row = layout.row()
         layout.prop(context.scene, "font_color")
