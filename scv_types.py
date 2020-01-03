@@ -1,10 +1,6 @@
 import time
 
-
-
 class SCV_Key_Input:
-
-
 
     def __init__(self):
         self._friendly_names = { 'LEFTMOUSE': 'Left', 'RIGHTMOUSE': 'Right', 'MIDDLEMOUSE': 'Middle',
