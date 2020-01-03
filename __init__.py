@@ -2,7 +2,7 @@ bl_info = {
     "name": "Shortcut VUr",
     "description": "Shortcut display addon",
     "author": "Jayanam",
-    "version": (0, 9, 0, 0),
+    "version": (0, 9, 1, 0),
     "blender": (2, 80, 0),
     "location": "View3D",
     "category": "Object"}
@@ -19,6 +19,11 @@ addon_keymaps = []
 
 wm = bpy.types.WindowManager
 wm.SCV_started = bpy.props.BoolProperty(default=False)
+
+bpy.types.Scene.show_buttons = bpy.props.BoolProperty(
+    name="Show Buttons", 
+    description="Show or hide the mouse buttons", 
+    default=True)
 
 h_dock = [ ("0",  "Left",  "Dock to the left side"),
            ("1",  "Right", "Dock to the right side"),

@@ -61,7 +61,6 @@ class SCV_Draw_Util:
         self.shader.bind()
         
         self.__set_color(left)
-        
         self.batch_left_button.draw(self.shader)
         
         self.__set_color(middle)

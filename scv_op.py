@@ -139,14 +139,16 @@ class SCV_OT_draw_operator(Operator):
         font_color = context.scene.font_color
         font_size = 28
 
-        # set color for buttons
-        self.draw_util.set_color_buttons(context)
+        if context.scene.show_buttons:
 
-        # Draw the mouse buttons
-        self.draw_util.draw_buttons(
-        self.mouse_input.is_left,
-        self.mouse_input.is_middle, 
-        self.mouse_input.is_right)
+            # set color for buttons
+            self.draw_util.set_color_buttons(context)
+
+            # Draw the mouse buttons
+            self.draw_util.draw_buttons(
+            self.mouse_input.is_left,
+            self.mouse_input.is_middle, 
+            self.mouse_input.is_right)
         
         # draw the text for events
         current_time = time.time()
@@ -155,37 +157,44 @@ class SCV_OT_draw_operator(Operator):
                             
         if(time_diff_keys < refresh_after_sec):
                                                  
-            font_id = 0
-            create_font(font_id, font_size, font_color)
-            
-            text = str(self.key_input)
-
-            # default left dock
-            xpos_text = 12
-            ypos_text = 30
-
-            if context.scene.h_dock == "1":
-
-                # right dock
-                text_extent = blf.dimensions(font_id, text)
-                xpos_text = context.region.width - text_extent[0] - 28 
-
-            elif context.scene.h_dock == "2":
-
-                # center dock
-                text_extent = blf.dimensions(font_id, text)
-                xpos_text = (context.region.width - text_extent[0]) / 2.0
-
-            elif context.scene.h_dock == "3":
-
-                ox = context.scene.cursor_offset_x
-                oy = context.scene.cursor_offset_y  
-                text_extent = blf.dimensions(font_id, text)
-                xpos_text = self.mouse_input.mouse_x - (text_extent[0] / 2.0) + ox
-                ypos_text = self.mouse_input.mouse_y - 120 - oy
-                                                
-            draw_text(text, xpos_text, ypos_text, font_id)
+            self.draw_text(font_size, font_color, context)
 
         else:
             self.key_input.clear()
             self.mouse_input.clear()
+
+    def draw_text(self, font_size, font_color, context):
+        font_id = 0
+        create_font(font_id, font_size, font_color)
+
+        text = str(self.key_input)
+
+        # default left dock
+        xpos_text = 12
+        ypos_text = 30
+
+        if context.scene.h_dock == "1":
+
+            # right dock
+            text_extent = blf.dimensions(font_id, text)
+            xpos_text = context.region.width - text_extent[0] - 28 
+
+        elif context.scene.h_dock == "2":
+
+            # center dock
+            text_extent = blf.dimensions(font_id, text)
+            xpos_text = (context.region.width - text_extent[0]) / 2.0
+
+        elif context.scene.h_dock == "3":
+            offset_buttons = 120
+            if context.scene.show_buttons == False:
+                offset_buttons = 70
+
+            ox = context.scene.cursor_offset_x
+            oy = context.scene.cursor_offset_y + offset_buttons
+            text_extent = blf.dimensions(font_id, text)
+            xpos_text = self.mouse_input.mouse_x - (text_extent[0] / 2.0) + ox
+            ypos_text = self.mouse_input.mouse_y - oy
+
+        draw_text(text, xpos_text, ypos_text, font_id)
+

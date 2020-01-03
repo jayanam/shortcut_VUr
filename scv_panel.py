@@ -37,3 +37,6 @@ class SCV_PT_panel(Panel):
 
         row = layout.row()
         layout.prop(context.scene, "color_buttons_active")
+
+        row = layout.row()
+        layout.prop(context.scene, "show_buttons")
