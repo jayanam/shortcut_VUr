@@ -2,7 +2,7 @@ bl_info = {
     "name": "Shortcut VUr",
     "description": "Shortcut display addon",
     "author": "Jayanam",
-    "version": (0, 9, 1, 1),
+    "version": (0, 9, 1, 2),
     "blender": (2, 80, 0),
     "location": "View3D",
     "category": "Object"}

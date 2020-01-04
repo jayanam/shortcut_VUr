@@ -104,7 +104,7 @@ class SCV_OT_draw_operator(Operator):
         return {"PASS_THROUGH"}
 
     def handle_mouse_move(self, context, event):
-        if event.type == "MOUSEMOVE":
+        if event.type == "MOUSEMOVE" and context.scene.h_dock == "3":
             self.mouse_input.set_mouse_pos(event.mouse_region_x, event.mouse_region_y)
             self.draw_util.create_batches(context, self.mouse_input)
     
