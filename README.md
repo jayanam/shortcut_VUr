@@ -10,6 +10,8 @@ With this Blender addon you can display mouse and keyboard input
 - Back in the **Add-ons** preferences window search for **Object: Shortcut VUr** check the checkbox next to it and click **Save Preferences** button if you want to be able to see it on any new Blender projects you open. 
 - Back in your **3D Viewport** (Shift + F5), On the right side of the 3D Viewport you will see a vertical tab called **Shortcut VUr**, click on it and then press **Start Shortcut VUr** button to start seeing the mouse clicks and the keys you press on your keyboard on the lower left side of your screen. 
 
+### Demo
 
+![demo video](demo.gif)
 
 
