@@ -20,15 +20,15 @@ class SCV_Draw_Util:
 
     def create_batches(self, context, mouse_input):
 
-        self.y_off = 50
-
         ox = context.scene.cursor_offset_x
         oy = context.scene.cursor_offset_y
 
+        self.y_off = 50 + oy
+
         if context.scene.h_dock == "0":
-            self.x_off = 14
+            self.x_off = 14 + ox
         elif context.scene.h_dock == "1":
-            self.x_off = context.region.width - 100
+            self.x_off = context.region.width - 100 - ox
 
         # Follow cursor
         elif context.scene.h_dock == "3":

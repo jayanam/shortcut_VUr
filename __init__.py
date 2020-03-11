@@ -2,7 +2,7 @@ bl_info = {
     "name": "Shortcut VUr",
     "description": "Shortcut display addon",
     "author": "Jayanam",
-    "version": (0, 9, 1, 2),
+    "version": (0, 9, 2, 0),
     "blender": (2, 80, 0),
     "location": "View3D",
     "category": "Object"}
@@ -19,6 +19,10 @@ addon_keymaps = []
 
 wm = bpy.types.WindowManager
 wm.SCV_started = bpy.props.BoolProperty(default=False)
+wm.do_redraw = bpy.props.BoolProperty(default=False)
+
+def do_redraw(self, context):
+    context.window_manager.do_redraw = True
 
 bpy.types.Scene.show_buttons = bpy.props.BoolProperty(
     name="Show Buttons", 
@@ -34,17 +38,20 @@ h_dock = [ ("0",  "Left",  "Dock to the left side"),
 bpy.types.Scene.h_dock = bpy.props.EnumProperty(
     items = h_dock, name="Dock", 
     description="Dock to left, center, right or to the cursor", 
-    default="1")
+    default="1",
+    update=do_redraw)
 
 bpy.types.Scene.cursor_offset_x = IntProperty(
                                       name="Offset X", 
                                       description="Offset X to cursor",
-                                      default = 0)
+                                      default = 0,
+                                      update=do_redraw)
 
 bpy.types.Scene.cursor_offset_y = IntProperty(
                                       name="Offset Y", 
                                       description="Offset Y to cursor",
-                                      default = 0)
+                                      default = 0,
+                                      update=do_redraw)
 
 bpy.types.Scene.font_color = bpy.props.FloatVectorProperty(  
    name="Text Color",

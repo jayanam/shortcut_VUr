@@ -22,7 +22,8 @@ class SCV_PT_panel(Panel):
         row = layout.row()
         layout.prop(context.scene, "h_dock")
         
-        if (scene.h_dock == "3"):
+        # Offset only for left, right or dock to cursor, not when it is centered
+        if (scene.h_dock != "2"):
             row = layout.row()
             layout.prop(context.scene, "cursor_offset_x")
 

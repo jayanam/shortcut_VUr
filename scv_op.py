@@ -38,14 +38,17 @@ class SCV_OT_draw_operator(Operator):
         self.draw_handle = None
         self.draw_event  = None
 
+    def check_create_batches(self, context):
+        if context.window_manager.do_redraw:
+            self.draw_util.create_batches(context, self.mouse_input)
+            context.window_manager.do_redraw = False
+
     def invoke(self, context, event):
         args = (self, context)
 
         self.draw_util = SCV_Draw_Util(context)        
         self.key_input = SCV_Key_Input()
         self.mouse_input = SCV_Mouse_Input()
-
-        self.h_dock = context.scene.h_dock
         self.width_region = context.region.width
 
         self.draw_util.create_batches(context, self.mouse_input)
@@ -62,12 +65,6 @@ class SCV_OT_draw_operator(Operator):
             context.window_manager.SCV_started = False
             return {'CANCELLED'}
     
-    def has_dock_changed(self, context):
-        if self.h_dock != context.scene.h_dock:
-            self.h_dock = context.scene.h_dock
-            return True
-        return False
-
     def register_handlers(self, args, context):
         self.draw_handle = bpy.types.SpaceView3D.draw_handler_add(self.draw_callback_px, args, "WINDOW", "POST_PIXEL")
         self.draw_event = context.window_manager.event_timer_add(0.1, window=context.window)
@@ -92,8 +89,7 @@ class SCV_OT_draw_operator(Operator):
         
         self.detect_mouse(event)
 
-        if self.has_dock_changed(context):
-            self.draw_util.create_batches(context, self.mouse_input)
+        self.check_create_batches(context)
         
         if not context.window_manager.SCV_started:
 
@@ -169,29 +165,34 @@ class SCV_OT_draw_operator(Operator):
 
         text = str(self.key_input)
 
+        ox = context.scene.cursor_offset_x
+        oy = context.scene.cursor_offset_y
+
         # default left dock
-        xpos_text = 12
-        ypos_text = 30
+        xpos_text = 12 + ox
+        ypos_text = 30 + oy
 
         if context.scene.h_dock == "1":
 
             # right dock
             text_extent = blf.dimensions(font_id, text)
-            xpos_text = context.region.width - text_extent[0] - 28 
+            xpos_text = context.region.width - text_extent[0] - 28 - ox 
 
         elif context.scene.h_dock == "2":
 
             # center dock
+            ypos_text = 30
             text_extent = blf.dimensions(font_id, text)
             xpos_text = (context.region.width - text_extent[0]) / 2.0
 
         elif context.scene.h_dock == "3":
+
             offset_buttons = 120
             if context.scene.show_buttons == False:
                 offset_buttons = 70
 
-            ox = context.scene.cursor_offset_x
             oy = context.scene.cursor_offset_y + offset_buttons
+
             text_extent = blf.dimensions(font_id, text)
             xpos_text = self.mouse_input.mouse_x - (text_extent[0] / 2.0) + ox
             ypos_text = self.mouse_input.mouse_y - oy
