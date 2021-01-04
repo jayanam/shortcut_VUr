@@ -3,11 +3,39 @@ import time
 class SCV_Key_Input:
 
     def __init__(self):
-        self._friendly_names = { 'LEFTMOUSE': 'Left', 'RIGHTMOUSE': 'Right', 'MIDDLEMOUSE': 'Middle',
-                                 'WHEELUPMOUSE': "Mouse wheel up", "WHEELDOWNMOUSE": "Mouse wheel down",
-                                 'ESC': 'Escape', 'RET': 'Enter', 'ONE' : '1', 'TWO': '2', 'THREE' : '3', 'FOUR': '4',
-                                 'FIVE': '5', 'SIX':'6', 'SEVEN':'7', 'EIGHT' : '8', 'NINE': '9', 'ZERO' : '0',
-                                 'COMMA' : 'Comma', 'PERIOD' : 'Period'}
+        self._friendly_names =  {
+                                    'LEFTMOUSE':        'Left',
+                                    'RIGHTMOUSE':       'Right',
+                                    'MIDDLEMOUSE':      'Middle',
+                                    'WHEELUPMOUSE':     'Scroll Up',
+                                    'WHEELDOWNMOUSE':   'Scroll Down',
+                                    'ESC':              'Escape',
+                                    'DEL':              'Del',
+                                    'ONE':              '1',
+                                    'TWO':              '2',
+                                    'THREE':            '3',
+                                    'FOUR':             '4',
+                                    'FIVE':             '5',
+                                    'SIX':              '6',
+                                    'SEVEN':            '7',
+                                    'EIGHT':            '8',
+                                    'NINE':             '9',
+                                    'ZERO':             '0',
+                                    'MINUS':            '-',
+                                    'PLUS':             '+',
+                                    'BACK_SPACE':       'Backspace',
+                                    'TAB':              'Tab',
+                                    'LEFT_BRACKET':     '[',
+                                    'RIGHT_BRACKET':    ']',
+                                    'BACK_SLASH':       '\\',
+                                    'SEMI_COLON':       ';',
+                                    'QUOTE':            "'",
+                                    'RET':              'Enter',
+                                    'COMMA':            ',',
+                                    'PERIOD':           '.',
+                                    'SLASH':            '/',
+                                    'OSKEY':            ''
+                                }
         self.clear()
 
     def clear(self):

@@ -1,15 +1,21 @@
-# Blender Shortcut VUr
+# Blender - Shortcut VUr
 
-With this Blender addon you can display mouse and keyboard input
+With this Blender add-on, you can display mouse and keyboard input
 
-### Installation Instructions
+# Installation Instructions
 
-- Download the **shortcut_VUr-master.zip** file from Jayanam's Github https://github.com/jayanam/shortcut_VUr (Press green button top right corner).
-- In Blender 2.8 go to **Edit** > **Add-ons** and on the right side of that window click on **Install** button.
-- In pop-up window navigate to where you downloaded the **shortcut_VUr-master.zip** file, select it and click **Install Add-on from File...** button on top right corner.
-- Back in the **Add-ons** preferences window search for **Object: Shortcut VUr** check the checkbox next to it and click **Save Preferences** button if you want to be able to see it on any new Blender projects you open. 
-- Back in your **3D Viewport** (Shift + F5), On the right side of the 3D Viewport you will see a vertical tab called **Shortcut VUr**, click on it and then press **Start Shortcut VUr** button to start seeing the mouse clicks and the keys you press on your keyboard on the lower left side of your screen. 
-
-
-
-
+1. Download the `.zip` file from [Github](https://github.com/jayanam/shortcut_VUr)    
+![](https://user-images.githubusercontent.com/70118133/103496085-fbb2fa80-4e90-11eb-84b1-44564d8b43c1.png)
+1. Go to `Edit` > `Preferences`
+![](https://user-images.githubusercontent.com/70118133/103496688-403f9580-4e93-11eb-8423-b8cb3df7b371.png)
+1. In Blender, go to `Add-ons` > `Install...`
+![](https://user-images.githubusercontent.com/70118133/103496687-3fa6ff00-4e93-11eb-8d12-b2ba7a7df208.png)
+1. Go to `Downloads` > `shortcut_VUr-master.zip` > `Install Add-on`
+![](https://user-images.githubusercontent.com/70118133/103496686-3ddd3b80-4e93-11eb-8710-0c2b2fa38ae4.png)
+1. Restart Blender *(Close Blender and re-open it)*
+1. Press `n` on your keyboard and go to `Shortcut VUr` > `Start Shortcut VUr`
+![](https://user-images.githubusercontent.com/70118133/103496683-3d44a500-4e93-11eb-9c66-e3c14b4d324e.png)
+1. Blender will now display mouse and keyboard input!    
+Keep in mind that you will have to repeat step `6` every time you restart blender.    
+You can now delete the `.zip` file safely without deleting the Add-on itself. Blender has installed a copy.
+![](https://user-images.githubusercontent.com/70118133/103496679-3b7ae180-4e93-11eb-8a04-ea7bd69c0596.png)
