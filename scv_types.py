@@ -30,6 +30,7 @@ class SCV_Key_Input:
                                     'LEFT_BRACKET':     '[',
                                     'RIGHT_BRACKET':    ']',
                                     'BACK_SLASH':       '\\',
+                                    'NUMPAD_SLASH':     'NUMPAD_/',
                                     'SEMI_COLON':       ';',
                                     'QUOTE':            "'",
                                     'RET':              'Enter',
