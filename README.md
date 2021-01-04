@@ -4,7 +4,7 @@ With this Blender add-on, you can display mouse and keyboard input
 
 # Installation Instructions
 
-1. Download the `.zip` or `tar.gz` file from [GitHub](https://github.com/Rhitt01/shortcut_VUr/releases)
+1. Download the `.zip` or `tar.gz` file from [GitHub](https://github.com/jayanam/shortcut_VUr/releases)
 ![](https://user-images.githubusercontent.com/70118133/103507145-9d970f00-4eb2-11eb-8442-34f6977c1bb5.png)
 1. Go to `Edit` > `Preferences`
 ![](https://user-images.githubusercontent.com/70118133/103496688-403f9580-4e93-11eb-8423-b8cb3df7b371.png)
