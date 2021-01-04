@@ -10,7 +10,7 @@ With this Blender add-on, you can display mouse and keyboard input
 ![](https://user-images.githubusercontent.com/70118133/103496688-403f9580-4e93-11eb-8423-b8cb3df7b371.png)
 1. Go to `Add-ons` > `Install...`
 ![](https://user-images.githubusercontent.com/70118133/103496687-3fa6ff00-4e93-11eb-8d12-b2ba7a7df208.png)
-1. Go to `Downloads` > `shortcut_VUr-master.zip` or `shortcut_VUr-master.tar.gz > `Install Add-on`
+1. Go to `Downloads` > `shortcut_VUr-master.zip` or `shortcut_VUr-master.tar.gz` > `Install Add-on`
 ![](https://user-images.githubusercontent.com/70118133/103496686-3ddd3b80-4e93-11eb-8710-0c2b2fa38ae4.png)
 1. Restart Blender ***(Close Blender and re-open it)***
 1. Press `n` on your keyboard and go to `Shortcut VUr` > `Start Shortcut VUr`
