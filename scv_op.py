@@ -10,7 +10,10 @@ from . scv_draw_util import *
 
 def create_font(id, size, color):
     blf.color(id, color.r, color.g, color.b, 1.0 )
-    blf.size(id, size, 72)
+    if bpy.app.version < (4, 0, 0):
+        blf.size(id, size, 72)
+    else:
+        blf.size(id, size)
       
 def draw_text(text, x, y, font_id):
     blf.position(font_id, x, y , 0) 
@@ -117,7 +120,7 @@ class SCV_OT_draw_operator(Operator):
     def cancel(self, context):
         if context.window_manager.SCV_started:
             self.unregister_handlers(context)
-        return {'CANCELLED'}        
+        return None
         
     def finish(self):
         self.unregister_handlers(context)
