@@ -10,7 +10,7 @@ from . scv_draw_util import *
 
 def create_font(id, size, color):
     blf.color(id, color.r, color.g, color.b, 1.0 )
-    if bpy.app.version <= (4, 0, 0):
+    if bpy.app.version < (4, 0, 0):
         blf.size(id, size, 72)
     else:
         blf.size(id, size)

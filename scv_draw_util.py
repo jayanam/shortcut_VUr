@@ -42,7 +42,7 @@ class SCV_Draw_Util:
         self.vertices_left   = ((self.x_off,      20 + self.y_off), (self.x_off,      50 + self.y_off), (self.x_off + 20, 50 + self.y_off), (self.x_off + 20, 20 + self.y_off))
         self.vertices_right  = ((self.x_off + 50, 20 + self.y_off), (self.x_off + 50, 50 + self.y_off), (self.x_off + 70, 50 + self.y_off), (self.x_off + 70, 20 + self.y_off))
         self.vertices_middle = ((self.x_off + 30, 30 + self.y_off), (self.x_off + 30, 50 + self.y_off), (self.x_off + 40, 50 + self.y_off), (self.x_off + 40, 30 + self.y_off))
-        if bpy.app.version <= (4, 0, 0):
+        if bpy.app.version < (4, 0, 0):
             self.shader = gpu.shader.from_builtin("2D_UNIFORM_COLOR")
         else:
             self.shader = gpu.shader.from_builtin("UNIFORM_COLOR")
